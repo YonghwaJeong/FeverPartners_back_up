@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/reset.css'%}">
+    <link rel="stylesheet" href="{% static 'css/jk.css' %}">
+    <link rel="stylesheet" href="{%static 'css/tag_selection.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="{%static 'javascript/jk.js'%}" defer></script>
+    <title>Fever Partners</title>
+</head>
+<body>
+    <div id='center-wrap'>
+        <div id="success-goal-container">
+            <div id="success-goal-body">
+                <p id="success-goal-massage" class="main-color-text bold-12em for-margin">성공적으로 목표가 등록되었습니다!</p>
+                <div id="choice-master-or-member">
+                    <div id="group-master-text">
+                        <p class="bold-12em">당신의 그룹을 생성해보세요</p>
+                        <a href="{%url "group_management:start_creation"%}" class="bold-12em">그룹장</a>
+                    </div>
+                    <div id="group-member-text">
+                        <p class="bold-12em">원하는 그룹에 가입해보세요</p>
+                        <form action="{%url "goal_management:recommendation_page" goal_id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="bold-12em">그룹원</button>
+                        </form>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

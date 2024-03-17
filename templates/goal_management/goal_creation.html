@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/reset.css'%}">
+    <link rel="stylesheet" href="{% static 'css/jk.css' %}">
+    <link rel="stylesheet" href="{% static 'css/minju2.css' %}">
+    <link rel="stylesheet" href="{%static 'css/tag_selection.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="{%static 'javascript/jk.js'%}" defer></script>
+    <title>Fever Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <span onclick="goBack()" class="page_back">
+            <i class="fa-solid fa-chevron-left main-color-text"></i>
+        </span>
+        <p class="room-title">목표설정</p>
+        <span><i class="ri-arrow-left-s-line hide-arrow"></i></span>
+    </header>
+    <div class='group-wrap1'>
+        <div id="goal-setting-container">
+            <div class='black-08em-bold'>카테고리를 선택하세요</div>
+            
+            <form action="{%url 'goal_management:create_goal'%}" method="post" onsubmit="return validateForm()" class="goal-form-setting">
+                {% csrf_token %}
+                <div id='tag-container'>
+                    <div>
+                        {% for tag in tags %}
+                        <input type="radio" id="tag-radio-{{ tag.id }}" name="selected_tag" value="{{ tag.id }}" onclick="loadSubtags({{ tag.id }})">
+                        <label for="tag-radio-{{ tag.id }}">{{ tag.tag_name }}</label>
+                        {% endfor %}
+                    </div>
+                    <div id='detail-tag-container'>
+                    </div>
+                </div>
+                <div id="tag-selection-warning" class="warning"></div>
+            
+                <div class='black-08em-bold'>어떤 활동을 원하시나요?</div>
+                <div id='acttag-container'>
+                    {% for actTag in actTags %}
+                        <input type="checkbox" id="actTag-checkbox-{{ actTag.id }}" name="activity-type[]" value="{{ actTag.id }}">
+                        <label for="actTag-checkbox-{{ actTag.id }}">{{actTag.tag_name}}</label>
+                    {% endfor %}
+                </div>
+            
+                <div id="activity-type-warning" class="warning"></div>
+            
+                <div class='black-08em-bold'>내 목표의 제목을 지어주세요</div>
+                <input type="text" id="goal-title" name="goal-title">
+            
+                <div id="goal-title-warning" class="warning"></div>
+            
+                <div class='black-08em-bold'>세부사항을 기입해주세요</div>
+                <textarea id="goal-details" name="goal-details"></textarea>
+            
+                <div id="goal-details-warning" class="warning"></div>
+            
+                <div class='black-08em-bold'>대면 활동을 선호하시나요?</div>
+                <div class="choice-on-off">
+                    <input type="radio" id="offline-radio" name="meeting-preference" value="True">
+                    <label for="offline-radio">선호해요</label>
+                    <input type="radio" id="online-radio" name="meeting-preference" value="False">
+                    <label for="online-radio">비대면 원해요</label>
+                </div>
+                <div id="meeting-preference-warning" class="warning"></div>
+                <div class="g-btn">
+                    <input id="goal-creation-submit"type="submit" value="목표 등록하기" class="red-btn goal-btn">  
+                </div>
+            </form>
+        </div>
+    </div>
+    {% comment %} <div class="footer">
+        <a
+            href="{% url 'group_management:group_list' %}"
+            class="footer-link"
+            style="display: flex;">
+            <div class="footer-item">
+                <i class="fa-solid fa-user-group footer-icon"></i>
+                <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+            </div>
+        </a>
+        <a
+            href="{% url 'goal_management:goal_list' %}"
+            class="footer-link"
+            style="display: flex;">
+            <div class="footer-item">
+                <i class="fa-solid fa-bullseye footer-icon"></i>
+                <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+            </div>
+        </a>
+        <a
+            href="{% url 'goal_management:achievement_report_list'%}"
+            class="footer-link"
+            style="display: flex;">
+            <div class="footer-item">
+                <i class="ri-file-list-3-line footer-icon"></i>
+                <a
+                    href="{% url 'goal_management:achievement_report_list'%}"
+                    class="footer-text">달성보고</a>
+                <!-- 이 부분 이름은 나중에 수정 필요 -->
+            </div>
+        </a>
+    </div> {% endcomment %}
+</body>
+</html>

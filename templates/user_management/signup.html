@@ -1,0 +1,72 @@
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fever Partners</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jiwoo.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- icon -->
+    <script src="https://kit.fontawesome.com/6a125f09de.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="signup_how_container">
+        <div class="page_back_header">
+            <span class="page_back" onclick="goBack()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </span>
+            <p  style="margin-top: 1rem;">fever partners</p>
+            <p>가입하기</p>
+        </div>
+        <div id="signup_method">
+            <div>
+                <span>
+                    <img src="{% static 'image/email.png' %}" alt="" style="height: 1.2rem; width: auto; margin-left: 1.3rem;">
+                </span>
+                <a href="{% url 'user_management:signup_email' %}">이메일로 시작하기</a>
+            </div>
+            <div>
+                <span>
+                    <img src="{% static 'image/naver.png' %}" alt="" style="height: 1.2rem; width: auto; margin-left: 1.3rem;">
+                </span>
+                <form action="{% provider_login_url 'naver'%}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">네이버로 시작하기</button>
+                </form>
+            </div>
+            <div>
+                <span>
+                    <img src="{% static 'image/google.webp' %}" alt="" style="height: 1.2rem; width: auto; margin-left: 1.3rem;">
+                </span>
+                <form action="{% provider_login_url 'google'%}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">구글로 시작하기</button>
+                </form>
+            </div>
+            <div>
+                <span>
+                    <img src="{% static 'image/kakao.png' %}" alt="" style="height: 1.2rem; width: auto; margin-left: 1.6rem;">
+                </span>
+                <form action="{% provider_login_url 'kakao'%}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">카카오로 시작하기</button>
+                </form>
+            </div>
+        </div>
+        <div id="return_login">
+            <span>이미 계정이 있나요?</span>
+            <a href="{% url 'user_management:login' %}">로그인</a>
+        </div>
+    </div>
+</body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</html>

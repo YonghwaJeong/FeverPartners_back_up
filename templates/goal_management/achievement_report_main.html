@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/minju2.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yh.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+    <title>Fever Partners</title>
+    <style>
+        .likedivdiv {
+            display:flex;
+            gap: 3px
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="go_back" href="{% url 'user_management:main'%}">
+            <i class="ri-arrow-left-s-line"></i>
+        </a>
+        <p class="room-title">달성보고</p>
+        <i class="ri-arrow-left-s-line hide-arrow"></i>
+    </header>
+    <div class="group-wrap1">
+    {% for report in reports %}
+    <div class="group-div">
+        <a href="{%url "goal_management:achievement_report_detail" report.pk%}">{{report.goal.title}}</a>
+        <p><span class='report-span'>달성자</span> {{report.goal.user.nickname}}</p>
+        <p class="report-ellipsis"><span class='report-span'>달성 후기</span> {{report.content}}</p>
+        <div class="likedivdiv">
+            <i class="ri-thumb-up-line" style="color: #db4455"></i>
+            <label for="report-like-btn"></label><span id='report-like-count'>{{report.reacted_respectful.all.count}}</span>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</body>
+</html>

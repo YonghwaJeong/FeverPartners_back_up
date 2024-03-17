@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{%static 'css/reset.css' %}" />
+  <link rel="stylesheet" href="{%static 'css/jk.css' %}" />
+  <link rel="stylesheet" href="{%static 'css/tag_selection.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+  <title>Fever Partners</title>
+</head>
+<body>
+  <div id='center-wrap'>
+    <div id="create-auth-container">
+      <div class='header-10vh'>
+          <div class="page_back_header">
+              <a href="{% url 'group_activity:main_page' room_id %}" class="page_back">
+                  <i class="fa-solid fa-chevron-left main-color-text"></i>
+              </a>
+          </div>
+          <div></div>
+      </div>
+
+        <div class="auth-create-wrap">
+          <div class="auth-info-text">
+            <p class="gray-08em">인증기간</p>
+            <div class="fs15em-bold">{{auth.start | date:"m월 d일"}} {{auth.start | time:"H:i"}} ~ <br>{{auth.end | date:"m월 d일"}} {{auth.end | time:"H:i"}}</div>
+          </div>
+          <form action="{% url 'group_activity:create_authentication' room_id auth_id %}" method="post" enctype="multipart/form-data" class="create-auths">
+            {%csrf_token%}
+            <p>내용:</p><textarea name="content" cols="30" rows="10" placeholder="인증 내용"></textarea>
+            <label for="input-auth-image" class="add-image-btn"><i class="ri-add-line"></i></label>
+            <input id="input-auth-image" type="file" name="image" accept="image/*">
+          
+            <button type="submit" class="red-btn big-btn">제출하기</button>
+          </form>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
+

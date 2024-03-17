@@ -1,0 +1,71 @@
+{% load socialaccount %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fever Partners</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jiwoo.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- icon -->
+    <script src="https://kit.fontawesome.com/6a125f09de.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="login_container">
+        <div class="page_back_header">
+            <span class="page_back" onclick="goBack()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </span>
+        </div>
+        <div id="login_box" style="width: 60vw;">
+            <span>계정</span>
+            <form id="login_form" action="" method="POST">
+                {% csrf_token %}
+                {{ form.email }}
+                {{ form.password }}
+                <button type="submit">로그인</button>
+            </form>
+            <div id="login_service">
+                <a href="">계정 찾기</a>
+                <a href="">비밀번호 찾기</a>
+                <a href="{% url 'user_management:signup' %}">회원가입</a>
+            </div>
+        </div>
+        <div id="social_login">
+            <form action="{% provider_login_url 'naver'%}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <button type="submit">
+                        <img src="{% static 'image/naver.png' %}" alt="">
+                    </button>
+                </div>
+            </form>
+            <form action="{% provider_login_url 'google'%}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <button type="submit">
+                        <img src="{% static 'image/google.webp' %}" alt="">
+                    </button>
+                </div>
+            </form>
+            <form action="{% provider_login_url 'kakao'%}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <button type="submit">
+                        <img src="{% static 'image/kakao.png' %}" alt="">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</html>

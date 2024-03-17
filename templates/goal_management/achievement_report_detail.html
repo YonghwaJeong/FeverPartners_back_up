@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="{%static 'javascript/ach_report.js'%}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/minju2.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/yh.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+    <title>Fever Partners</title>
+</head>
+<body>
+    <header>
+        <a class="go_back" href="{% url 'goal_management:achievement_report_list'%}">
+            <i class="ri-arrow-left-s-line"></i>
+        </a>
+        <p class="room-title">달성보고 상세</p>
+        <i class="ri-arrow-left-s-line hide-arrow"></i>
+    </header>
+    <div class="report-detail-wrap">
+        <div><span class="report-span">목표</span> {{report.goal.title}}</div>
+        <div><span class="report-span">달성자</span> {{report.goal.user.nickname}}</div>
+        <div><span class="report-span">내용 및 달성후기</span> {{report.content}}</div>
+        {% if report.image %}
+            <img class="report-image" src="{{ report.image.url }}" alt="이미지">
+        {% endif %}
+    </div>
+    <br>
+    <div class="report-reaction-btns">
+        <div>
+            <button id='report-love-btn'><i class="ri-heart-add-line"></i></button>
+            <label for="report-love-btn"></label><span id='report-love-count'>{{report.reacted_love.all.count}}</span>
+        </div>
+        
+        <div>
+            <button id='report-like-btn'><i class="ri-thumb-up-line"></i></button>
+            <label for="report-like-btn"></label><span id='report-like-count'>{{report.reacted_respectful.all.count}}</span>
+        </div>
+        
+        <div>
+            <button id='report-dislike-btn'><i class="ri-thumb-down-line"></i></button>
+            <label for="report-dislike-btn"></label><span id='report-dislike-count'>{{report.reacted_dislike.all.count}}</span>
+        </div>
+        <div>
+            <button id='report-user-report-btn'><i class="ri-alarm-warning-line"></i></button>
+        </div>
+    </div>
+    <input type="hidden" id="report-pk-hidden" value="{{report.pk}}">
+    <style>
+        .swal2-radio {
+            display: grid !important;
+            text-align: left;
+            gap: 20px;
+        }
+    </style>
+</body>
+</html>

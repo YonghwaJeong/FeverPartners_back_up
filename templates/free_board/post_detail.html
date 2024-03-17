@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/free_board.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>자유게시판</title>
+  <script src="{%static 'javascript/main.js'%}" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+  <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div>
+    <div class="post-detail-body">
+      <header>
+        <a href="{% url 'free_board:list' study_room_id %}"><i class="ri-arrow-drop-left-line back-arrow"></i></a>
+        <p class="board-title">자유게시판</p>
+      </header>
+      <div class="container">
+        <!-- 사용자가 본인의 글에 좋아요를 누를 경우 -->
+        {% if messages %}
+            <script>
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+            </script>
+        {% endif %}
+
+        <!-- 이 글이 공지글일 경우 -->
+        {% if post.notice %}
+          <h2 class="post-detail-title">
+            <span class="notice-container">
+              <span class="notice-tag">공지</span>
+            </span>
+            {{ post.title }}
+          </h2>
+        {% else %}
+          <h2 class="post-detail-title">{{ post.title }}</h2>
+        {% endif %}
+
+        <!-- 게시글의 내용 -->
+        <div class="post-body">
+          <div class="post-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="post-info">
+              <div class="post-author">
+                {{ post.author.nickname }} |
+              </div>
+              <div class="post-created-time">
+                {{ post.created_at|date:"y-m-d H:i" }}
+              </div>
+            </div>
+            {% if request.user == post.author %}
+            <div class="mod-del">
+              <a href="{% url 'free_board:modify_post' study_room_id post.id %}" class="btn-mod">수정</a>
+              <span class="separator">|</span>
+              <form action="{% url 'free_board:post_delete' study_room_id post.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+                <button type="submit" class="btn-del" onclick="return confirm('정말로 글을 삭제하시겠습니까?');">삭제</button>
+              </form>
+            </div>
+            {% endif %}
+          </div>
+          {% if post.updated_at %}
+            <div class="post-update-time">
+              마지막 수정 시간 "{{ post.updated_at|date:"y-m-d H:i" }}"
+            </div>
+          {% endif %}
+          <div class="post-writing">
+            <div class="post-text">
+              {{ post.content }}
+            </div>
+          </div>
+        </div>
+
+        <!-- 좋아요 버튼 -->
+        <div class="post-vote">
+          <form action="{% url 'free_board:vote_post' study_room_id post.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="vote-button" onclick="return confirm('추천하시겠습니까?');"><i class="ri-heart-3-fill"></i></button>
+          </form>
+          <div class="vote-count">
+            {{ post.voter.count }}
+          </div>
+        </div>
+        <hr class="custom-hr">
+        <h5 class="comment-count">
+          댓글({{ post.comments.count }})
+        </h5>
+
+        {% for comment in post.comments.all %}
+          <div class="comment">
+            <div class="comment-body">
+              <div class="comment-author">
+                <span>{{ comment.author.nickname }}</span>
+                <div class="comment-author-details">
+                  <div class="created-at">작성 | {{ comment.created_at|date:"Y-m-d H:i" }}</div>
+                  {% if comment.updated_at %}
+                    <div class="updated-at">마지막 수정 시간 "{{ comment.updated_at|date:"Y-m-d H:i" }}"</div>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="comment-content">
+                {{ comment.content }}
+              </div>
+            </div>
+
+            {% if request.user == comment.author %}
+              <div class="comment-mod-del-btn">
+                <button type="button" onclick="location.href='{% url 'free_board:modify_comment' study_room_id comment.id %}'" class="btn-comment-action">수정</button>
+                <form action="{% url 'free_board:comment_delete' study_room_id comment.id %}" method="post" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn-comment-action" onclick="return confirm('정말로 댓글을 삭제하시겠습니까?');">삭제</button>
+                </form>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <form action="{% url 'free_board:create_comment' study_room_id post.id %}" method="post" class="my-3">
+        {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+              {% if field.errors %}
+
+              {% endif %}
+            {% endfor %}
+        {% endif %}
+          <div class="comment-form">
+            <textarea name="content" id="content" {% if not user.is_authenticated %} disabled {% endif %} cols="30" rows="10"></textarea>
+            <input type="submit" value="댓글 등록" class="btn-submit-comment">
+          </div>
+        </form>
+        <a href="{% url 'free_board:list' study_room_id %}" class="btn-return-list">목록</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

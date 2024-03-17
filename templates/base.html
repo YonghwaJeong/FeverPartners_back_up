@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/reset.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="{%static 'javascript/jk.js'%}" defer></script>
+    <title>Fever Partners</title>
+</head>
+<body>
+    <div id='center-wrap'>
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

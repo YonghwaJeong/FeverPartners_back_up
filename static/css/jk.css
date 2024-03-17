@@ -1,0 +1,706 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
+:root {
+  --main-color: #db4455;
+  --gray: #838383;
+  --red: #EB0000;
+  --green: #00AD26;
+  --main-color: #db4455;
+  --white-color: #ffffff;
+  --gray-color: #A9A9A9;
+  --font-color: #6b6b6b;
+}
+body, html {
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.page_back{
+  cursor: pointer;
+}
+
+#group-activat-box{
+  width: 100vw;
+}
+
+#group-introbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--main-color);
+  color: white;
+  height: 35vh;
+}
+
+#group-intro-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.white-title{
+  font-weight: bold;
+  font-size: 3em;
+  color: white;
+}
+#group-intro-text .white-title {
+  font-weight: normal;
+  font-size: 2.5em;
+}
+.group-intro-tag{
+  display: flex;
+  gap: 1em;
+}
+
+#group-admin-or-withdraw{
+  display: flex;
+  gap: 1em;
+  margin-bottom: 3vh;
+}
+
+.group-btn{
+  color: var(--main-color);
+  background-color: white;
+  font-size: 0.8em;
+  text-decoration: none;
+  padding: 0.5em 0.7em;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#group-select-activity-list {
+  height: 5vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: solid 0.2vh rgb(190, 190, 190);
+  font-weight: bold;
+}
+
+#group-select-activity-list > a,
+#group-select-activity-list > a:visited {
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.selected-group-tab{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bolder;
+  border-bottom: 2px solid var(--main-color);
+  color: var(--main-color);
+}
+
+.selected-group-admin-tab{
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid var(--main-color);
+  color: rgb(219, 68, 85) !important;
+}
+
+#group-activity-content {
+  height: 41vh;
+  padding: 2vh;
+}
+
+#auth-logs{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.auth-log{
+  border: 1.5px solid var(--main-color);
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.auth-text{
+  display: flex;
+  align-items: center;
+  gap:0.5em;
+  margin: 0.7em 0;
+  margin-top: 0;
+  margin-left: 10px;
+}
+
+.ri-checkbox-circle-fill{
+  color: #00AD26;
+}
+
+.ri-close-circle-fill{
+  color: #EB0000;
+}
+
+.gray-08em{
+  color: var(--gray);
+  font-size: 0.8em;
+}
+
+.main-color-08em{
+  color: var(--main-color);
+  font-size: 0.8em;
+}
+
+.main-color-bold{
+  color: var(--main-color);
+}
+
+.auth-success{
+  color: var(--green);
+}
+
+.auth-fail{
+  color: var(--red);
+}
+.auth-log p {
+  font-weight: normal;
+  margin: 7px;
+}
+/*group_activate.html*/
+#activate-auths{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.activate-auth{
+  border: 1.5px solid #db4456ac;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  padding: 0.5em;
+}
+
+.activate-auth-bottom{
+  display: flex;
+  justify-content: space-between;;
+  align-items: center;
+}
+
+.blue-bc-text{
+  color: var(--gray);
+  font-size: 0.8em;
+  background-color: skyblue;
+  padding: 0.3em 0.5em;
+  border-radius: 5px;
+}
+
+.green-bc-text{
+  color: white;
+  font-size: 0.8em;
+  background-color: var(--green);
+  padding: 0.3em 0.5em;
+  border-radius: 5px;
+}
+
+.auth-btn-style{
+  color: white;
+  background-color: var(--main-color);
+  font-size: 0.8em;
+  text-decoration: none;
+}
+
+.red-btn{
+  padding: 0.3em 0.5em;
+  border-radius: 5px;
+  background-color: var(--main-color);
+  color: white;
+}
+
+.create-auth-btn{
+  height: 2em;
+  width: 2em;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 0.8em;
+  position: absolute;
+  top: 76%;
+  left: 80%;
+}
+
+#auth-restart{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fa-rotate-right{
+  color: var(--gray);
+}
+
+/* member_list.html */
+#group-member-list{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+#member-list-text{
+  color: var(--main-color);
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: 0.05em 0.05em 2px var(--gray);
+}
+
+.member-field-span {
+  color: var(--main-color);
+}
+
+.group-member-intro{
+  border: 1.5px solid var(--main-color);
+  border-radius: 8px;
+  display: flex;
+}
+.group-master-intro{
+  border-radius: 8px;
+  display: flex;
+  border: var(--main-color) 1.5px solid;
+  /* box-shadow: inset 0 0 0.4em 0 var(--main-color), 0 0 0.3em 0 var(--main-color); */
+}
+
+.member-intro-text{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+}
+.member-intro-text h3 {
+  font-size: large;
+}
+.profile-image-group{
+  height: 5em;
+  width: 5em;
+  /* border: 1px solid var(--main-color); */
+  border-radius: 50%;
+  margin: 1em;
+}
+/* forms.py */
+
+.create-auths{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+  gap: 0.5em;
+  font-weight: bold;
+}
+
+.auth-info-text{
+  margin: 2em 0;
+}
+
+.black-bold{
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.big-btn{
+  height: 4em;
+  margin-top: 5em;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* 목표 등록 후 */
+#success-goal-container{
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#success-goal-body{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#choice-master-or-member{
+  display: flex;
+  gap: 5vw;
+}
+
+#group-master-text,
+#group-member-text{
+  width: 35vw;
+  text-align: center;
+}
+
+#group-master-text > a{
+  text-decoration: none;
+  color: #8B8B8B;
+  transition: 0.5s;
+}
+
+#group-member-text button{
+  border: 0;
+  outline: 0;
+  color: #8B8B8B;
+  background-color: white;
+  transition: 0.5s;
+  padding: 0;
+  margin: 0;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: bolder;
+  font-style: normal;
+}
+
+#group-master-text > a:hover,
+#group-member-text button:hover{
+  color: var(--main-color);
+}
+
+.bold-12em{
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.for-margin {
+  margin-bottom: 10vh;
+}
+
+/* 그룹장이 방 생성하기 */
+
+#create-room-container{
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  margin-bottom: 31vh;
+
+}
+#create-room-container > div {
+  margin: 0 5vw;
+}
+.group-form-setting{
+  display: flex;
+  flex-direction: column;
+}
+.mar {
+  margin-bottom: 2vh;
+}
+
+
+/* 알림창 */
+#group-request-container{
+  height: 90vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#group-request-container > ul {
+  padding: 0;
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  overflow-y: scroll;
+}
+
+#group-request-container > ul::-webkit-scrollbar {
+  display: none;
+}
+
+#group-request-container > ul > li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#group-request-container > ul > li > div{
+  font-weight: bold;
+}
+
+.request-detail-btn{
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  background-color: var(--main-color);
+  border-radius: 15px;
+  font-size: 0.8em;
+  padding: 0.5em 1.5em;
+}
+
+
+
+/* 알림 디테일 */
+.suggest-join-group{
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  margin-top: 5vh;
+}
+
+.fs15em-bold{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.fs12em-bold{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.fs10em-bold{
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.horizontal-btns{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3vh;
+  flex-direction: column;
+}
+.horizontal-btns div {
+  display: flex;
+  gap:10px;
+  justify-content: flex-end;
+  margin-top: 1vh;
+}
+.white-main-btn{
+  color: var(--main-color);
+  background-color: white;
+  border-radius: 15px;
+  width: 6em;
+  height: 2em;
+  border: 2px solid var(--main-color);
+  transition: 0.3s;
+}
+
+.white-main-btn:hover{
+  color: white;
+  background-color: var(--main-color);
+}
+
+/*마이페이지*/
+#mypage-container{
+  height: 90vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.mt5vh-bold-text{
+  font-weight: bold;
+}
+
+.profile-image-my{
+  height: 7em;
+  width: 7em;
+  border-radius: 50%;
+  border: 2px solid var(--main-color);
+}
+
+.user-detail-box{
+  border: 1px solid white;
+  border-radius: 7px;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+  padding-left: 5vw;
+}
+
+.a-to-btn{
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 인증 만들기 */
+#create-auth-container{
+  height: 90vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-10vh{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+}
+
+.auth-create-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 10vw 0 10vw;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-create-wrap form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.auth-create-wrap input,
+.auth-create-wrap textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.user-update input[type="submit"] {
+  background-color: #db4455;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-create-wrap p,
+.auth-create-wrap input{
+  margin-bottom: 1.5vh;
+}
+
+.auth-create-wrap textarea{
+  margin-bottom: 4vh;
+}
+
+#input-auth-image{
+  display: none;
+}
+
+.ri-add-line{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-image-btn{
+  height: 27.6px;
+  width: 37.6px;
+}
+
+/* =====footer===== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  box-sizing: border-box;
+  justify-content:center;
+  padding: 10px;
+  overflow: auto;
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 110px;
+}
+.footer-item:nth-of-type(2) {
+  margin: 0 10vw;
+}
+.footer-icon {
+  font-size: 30px;
+  color: #db4455;
+  margin-bottom: 10px;
+}
+
+.footer-text {
+  color: #db4455;
+  font-size: 16px;
+  font-style: italic;
+  text-decoration: none;
+}
+
+.footer-link {
+  text-decoration: none;
+}
+/* select 요소 스타일 */
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+}
+
+select option:checked {
+  background-color: #e0e0e0;
+}
+.no-margin {
+  margin: 0;
+  padding: 0;
+}
+input[type="number" i] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* 인증 detail 모달 */
+.auth-detail-img {
+  height: auto;
+  max-height: 70vh;
+  width: 70vw; 
+}
+.auth-detail-title {
+  font-size: 6vw;
+  margin-bottom: 3vh;
+}
+.auth-detail-span {
+  color: #db4455;
+}
+.auth-detail-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2vh;
+  gap: 8vw;
+  font-size: 8vw;
+}
+
+.d3 {
+  display: flex;
+  align-items: center;
+  margin-top: -7px;
+}
+
+.d3 > img {
+  margin-bottom: 7px;
+}

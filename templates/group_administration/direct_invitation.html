@@ -1,0 +1,43 @@
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/minju.css' %}">
+<script src="{% static 'javascript/extra_scripts.js' defer %}"></script>
+<div class="i_m_d">
+  <p class="invite_user_p">유저 닉네임을 직접 입력해서 멤버를 초대하세요!</p>
+  <input type="text" id="nickname" placeholder="유저 닉네임을 입력하세요">
+  <input type="hidden" id="invitation-roomId-hidden" value="{{ room_id }}">
+  <div id="searchResults"></div>
+</div>
+<script>
+
+  if (!window.hasOwnProperty('nicknameInput')) {
+    const nicknameInput = document.getElementById('nickname');
+    const searchResultsDiv = document.getElementById('searchResults');
+    const roomHidden = document.getElementById('invitation-roomId-hidden');
+    let roomId = roomHidden.value;
+
+    nicknameInput.addEventListener('input', () => {
+        let nickname = nicknameInput.value.trim();
+        if (nickname !== '') {
+            fetch(`/group_admin/search/${roomId}?nickname=${nickname}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('서버 오류 발생');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displaySearchResults(searchResultsDiv, data);
+                })
+                .catch(error => {
+                    console.error('검색 중 오류 발생:', error);
+                });
+        } else {
+            searchResultsDiv.innerHTML = '';
+        }
+    });
+  }
+
+</script>
+{% endblock content %}

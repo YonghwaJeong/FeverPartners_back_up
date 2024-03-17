@@ -1,0 +1,28 @@
+{% load static %}
+{% block content %}
+    {% for member in members.all %}
+        <div id="member-{{ member.pk }}" class="member-card">
+            <div class="member-info">
+                {% if member.profile_image %}
+                <img
+                src="/media/{{member.profile_image}}"
+                alt="프로필 이미지"
+                class="profile-image"
+                />
+                {% else %}
+                <img
+                    src="{% static 'image/noimage.png' %}"
+                    alt="프로필 이미지"
+                    class="profile-image"
+                />
+                {% endif %}
+                <h3 class="member-nickname">{{ member.nickname }}</h3>
+                <div class="action-buttons">
+                    <button class="action-button" onclick="ExpelMemberConfirm({{ member.pk }}, {{ room_id }})">추방</button>
+                    <button class="action-button" onclick="TransferMaster({{ member.pk }}, {{ room_id }})">관리장 위임</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock content %}

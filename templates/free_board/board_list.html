@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/free_board.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>자유게시판</title>
+  <script src="{%static 'javascript/main.js'%}" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+  <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div>
+    <div class="content-wrapper">
+      <header>
+        <a href="{% url 'group_activity:main_page' room_id %}"><i class="ri-arrow-drop-left-line back-arrow"></i></a>
+        <p class="board-title">자유게시판</p>
+      </header>
+      <div class="container">
+        <!-- 공지 / 자유 탭 부분 -->
+        <div class="tab-container">
+          <a href="?tab=notice" class="{% if tab == 'notice' %}notice-active{% else %}notice-inactive{% endif %}">공지</a>
+          <a href="?tab=free" class="{% if tab == 'free' %}community-active{% else %}community-inactive{% endif %}">자유</a>
+        </div>
+
+        <!-- 게시글 보여지는 표 부분 -->
+        <table style="width: 100%; margin-bottom: 30px;" class="board-table">
+          <!-- 표의 최상단 제목단 부분 -->
+          <thead class="thead">
+            <tr class="table-title">
+              <th style="max-width: 150px">제목</th>
+              <th style="font-size: 0.7rem">추천수</th>
+              <th style="font-size: 0.7rem">작성자</th>
+              <th style="font-size: 0.7rem">작성일시</th>
+            </tr>
+          </thead>
+
+          <!-- 게시물의 내용이 나타나는 부분 -->
+          <tbody class="tbody">
+            {% for post in page_obj %}
+              <tr class="text-center">
+                <td class="text-title">
+                  {% if tab == 'free' and post.notice %}
+                    <span class="megaphone-icon" style="color: #db4455;"><i class="ri-megaphone-fill"></i></span>
+                  {% endif %}
+                  {% if request.user == post.author %}
+                    <a class="text-title-dimension" href="{% url 'free_board:detail' post.room.id post.id %}" style="color: #2666a4;">{{ post.title }}</a>
+                  {% else %}
+                    <a class="text-title-dimension" href="{% url 'free_board:detail' post.room.id post.id %}" style="color: black;">{{ post.title }}</a>
+                  {% endif %}
+                  {% if post.comments.count > 0 %}
+                    <span class="post-comment-count">[{{ post.comments.count }}]</span>
+                  {% endif %}
+                </td>
+                <td>{{ post.voter.all.count }}</td>
+                <td>{{ post.author.nickname }}</td>
+                <td class="post-date">
+                <div style="margin-bottom: 1px;">{{ post.created_at|date:"y-m-d" }}</div>
+                <div>{{ post.created_at|date:"A g:i" }}</div>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                  <td colspan="4">게시물이 없습니다.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- 페이지네이션 부분 -->
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?tab={{ tab }}&page={{ page_obj.previous_page_number }}"><i class="ri-arrow-left-s-line" style="font-weight: bold"></i></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link"><i class="ri-arrow-left-s-line" style="font-weight: bold"></i></a>
+          </li>
+          {% endif %}
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item"><a class="page-link active" href="?tab={{ tab }}&page={{ num }}">{{ num }}</a></li>
+            {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+            <li class="page-item"><a class="page-link" href="?tab={{ tab }}&page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?tab={{ tab }}&page={{ page_obj.next_page_number }}"><i class="ri-arrow-right-s-line" style="font-weight: bold"></i></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link"><i class="ri-arrow-right-s-line" style="font-weight: bold"></i></a>
+          </li>
+          {% endif %}
+        </ul>
+        <br>
+        <div>
+          <a href="{% url 'free_board:create_post' study_room_id=room_id %}" class="new-post-btn">글 쓰기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{%static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/jk.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/tag_selection.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="{%static 'javascript/jk.js'%}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <title>Fever Partners</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Noto+Sans+KR:wght@100..900&display=swap');
+      div {
+        font-family: "IBM Plex Sans KR", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="group-activat-box">
+      <div id="group-introbox">
+        <div class='goal-header goal-header-w'>
+            <div class="page_back_header">
+                <a href="{% url 'group_management:group_list' %}" class="page_back">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+            </div>
+        </div>
+        <div id="group-intro-text">
+          <p class="white-title">{{ room.title }}</p>
+          <div class="group-intro-tag">
+            {% for tag in room.tags.all %}
+            <p>#{{ tag }}</p>
+            {% endfor %}
+          </div>
+          <p>{{ room.detail }}</p>
+          <p>
+            인증
+            {% if room.cert_required %}필수{% else %}선택{% endif %}
+            {% if room.cert_required %}
+            &nbsp;&nbsp;벌금
+            {{ room.penalty_value}}🪙
+            보증금
+            {{ room.deposit}}🪙
+            {% endif %}
+        </p>
+        </div>
+        <div id="group-admin-or-withdraw">
+          <a
+            onclick="PermissionCheck({{user.pk}}, {{room_id}})"
+            class="group-btn"
+            >그룹 관리</a
+          >
+          <a
+            onclick="WithdrawalConfirm({{user.pk}}, {{room_id}})"
+            class="group-btn"
+            >탈퇴하기</a>
+        </div>
+      </div>
+      <div id="group-select-activity-list">
+        <a href="{%url 'group_activity:member_list' room_id%}" onclick="changeTab('member', event, {{room_id}})" class="selected-group-tab">멤버</a>
+        <a href="{% url 'group_activity:activate' room_id %}" onclick="changeTab('activate', event, {{room_id}})" id="auth-space">인증 공간</a>
+        <a href="{% url 'group_activity:show_log' room_id %}" onclick="changeTab('show_log', event, {{room_id}})">활동 현황</a>
+        <a href="{% url 'free_board:list' room_id %}">게시판</a>
+      </div>
+      <div id="group-activity-content">
+        {% block content %} {% endblock content %}
+      </div>
+      <div class="footer">
+        <a href="{% url 'group_management:group_list' %}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="fa-solid fa-user-group footer-icon"></i>
+            <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+          </div>
+        </a>
+        <a href="{% url 'goal_management:goal_list' %}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="fa-solid fa-bullseye footer-icon"></i>
+            <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+          </div>
+        </a>
+        <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="ri-file-list-3-line footer-icon"></i>
+            <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-text">달성보고</a>    <!-- 이 부분 이름은 나중에 수정 필요 -->
+          </div>
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+
+    //그룹탭 들어오면 기본 페이지 실행
+    function initializeAct() {
+      var room_id = {{ room_id }};
+      var previousPage = document.referrer;
+      
+      if (previousPage.includes(window.location.origin + '/group_activity/auth/') || previousPage.includes(window.location.origin + '/group_activity/authentication/')) {
+          document.addEventListener('DOMContentLoaded', function () {
+              authActivate(room_id)
+          });
+      } else {
+          document.addEventListener('DOMContentLoaded', function () {
+              defaultActivate(room_id);
+          });
+      }
+    }
+
+    initializeAct()
+  </script>
+</html>

@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="{%static 'javascript/main.js'%}" defer="defer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer="defer"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/minju2.css' %}">
+        <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <header>
+            <a class="go_back" href="{% url 'goal_management:goal_list'%}">
+                <i class="ri-arrow-left-s-line"></i>
+            </a>
+            <p class="room-title">달성보고</p>
+            <i class="ri-arrow-left-s-line hide-arrow"></i>
+        </header>
+        <div class="ach-wrap">
+            <div class="ach-w-w">
+                <div><h3>{{goal.title}}</h3></div>
+                <div>
+                    <label for="achievement-report-content">달성 내용 및 후기</label><br>
+                    <textarea
+                        id="achievement-report-content"
+                        name="content"
+                        rows="4"
+                        cols="50"
+                        required="required"></textarea>
+                    <div id="achievement-content-warning" class="warning"></div>
+                </div>
+                <div>
+                    <label for="achievement-report-image">사진 첨부</label><br>
+                    <input type="file" id="achievement-report-image" name="image">
+                    <div class="btn"><button type="button" onclick="SubmitAchievementReport({{goal.pk}})">보고하기</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a
+                href="{% url 'group_management:group_list' %}"
+                class="footer-link"
+                style="display: flex;">
+                <div class="footer-item">
+                    <i class="fa-solid fa-user-group footer-icon"></i>
+                    <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+                </div>
+            </a>
+            <a
+                href="{% url 'goal_management:goal_list' %}"
+                class="footer-link"
+                style="display: flex;">
+                <div class="footer-item">
+                    <i class="fa-solid fa-bullseye footer-icon"></i>
+                    <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+                </div>
+            </a>
+            <a
+                href="{% url 'goal_management:achievement_report_list'%}"
+                class="footer-link"
+                style="display: flex;">
+                <div class="footer-item">
+                    <i class="ri-file-list-3-line footer-icon"></i>
+                    <a
+                        href="{% url 'goal_management:achievement_report_list'%}"
+                        class="footer-text">달성보고</a>
+                    <!-- 이 부분 이름은 나중에 수정 필요 -->
+                </div>
+            </a>
+        </div>
+    </body>
+</html>

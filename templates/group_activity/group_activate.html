@@ -1,0 +1,49 @@
+
+
+{% block content %}
+<div id="activate-auths">
+    <div id="auth-restart"><i class="fa-solid fa-rotate-right" onclick="changeTab('activate', event, {{room_id}})"></i></div>
+    {% for auth in authentications %}
+    {% if auth.start > current_time %}
+        <div id="auth-{{ auth.id }}" class="activate-auth">
+            <div class="gray-08em v1">아직 인증이 시작되지 않았습니다</div>
+            <div class="gray-08em">[ 인증시간 ]</div>
+            <div>{{auth.start | date:"m월 d일"}} {{auth.start | time:"H:i"}} ~ {{auth.end | date:"m월 d일"}} {{auth.end | time:"H:i"}}</div>
+        </div>
+    {% elif auth.end < current_time %}
+        {% if user == room.master %}
+        <div id="auth-{{ auth.id }}" class="activate-auth">
+            <div class="gray-08em v1">이미 종료된 인증입니다.</div>
+            <div class="gray-08em">[ 인증시간 ]</div>
+            <div>{{auth.start | date:"m월 d일"}} {{auth.start | time:"H:i"}} ~ {{auth.end | date:"m월 d일"}} {{auth.end | time:"H:i"}}</div>
+            <div class="activate-auth-bottom">
+                <div></div>
+                <a href="#" onclick="closeAuth({{room.pk}},{{ auth.pk }})" class="blue-bc-text">인증마감</a>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+        <div id="auth-{{ auth.id }}" class="activate-auth">
+            <div class="main-color-08em v1">현재 활성화 된 인증</div>
+            <div class="gray-08em">[ 인증시간 ]</div>
+            <div>{{auth.start | date:"m월 d일"}} {{auth.start | time:"H:i"}} ~ {{auth.end | date:"m월 d일"}} {{auth.end | time:"H:i"}}</div>
+            <div class="activate-auth-bottom">
+                <div></div>
+                {% if user in auth.participated.all %}
+                <div class="green-bc-text">참여완료</div>
+                {% else %}
+                <a href="{% url 'group_activity:create_authentication' room.pk auth.pk %}" onclick="return checkCurTime({{ auth.end|date:'U' }}000)" class="auth-btn-style red-btn">인증하기</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    {% if user == room.master %}
+        <a href="{% url 'group_activity:create_auth' room.pk %}" class="create-auth-btn auth-btn-style">인증 개설</a>
+    {% endif %}
+</div>
+{% endblock content %}

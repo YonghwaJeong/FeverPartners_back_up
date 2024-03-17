@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/free_board.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>자유게시판</title>
+  <script src="{%static 'javascript/main.js'%}" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+  <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div>
+    <header>
+      <a href="{% url 'free_board:detail' study_room_id=study_room_id post_id=post_id %}"><i class="ri-arrow-drop-left-line back-arrow"></i></a>
+      <p class="board-title">자유게시판</p>
+    </header>
+    <div class="container">
+      <form method="post" action="{% url 'free_board:modify_comment' study_room_id=study_room_id comment_id=comment.id %}" class="post-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <span class="comment-mod-title" style="margin-left: 5px">댓글 수정</span>
+          <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="comment-button-container">
+          <button type="submit" class="comment-modify-submit-btn">수정 완료</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

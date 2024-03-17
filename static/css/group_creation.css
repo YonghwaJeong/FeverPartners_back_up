@@ -1,0 +1,59 @@
+:root {
+    --main-color: #db4455;
+  }
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.toggle-container {
+    margin-bottom: 10px;
+}
+
+.toggle-label {
+    cursor: pointer;
+    background-color: #ccc;
+    width: 50px;
+    height: 25px;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: var(--main-color);
+}
+
+.toggle-label:before {
+    content: 'NO';
+    color: white;
+    transition: transform 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-label:before {
+    content: 'YES';
+}
+
+.room-horizontal-div {
+    display: flex;
+    gap: 6vw;
+}
+.room-horizontal-div > label {
+    background-color: rgba(219, 68, 85, 0.8);
+    color: white;
+    width: 14vw;
+    height: 3vh;
+    text-align: center;
+    line-height: 3vh;
+    border-radius: 12px;
+    margin-top: 2vh;
+}
+
+.room-horizontal-div > input[type="radio"]:checked + label {
+    color: white;
+    box-shadow: 2px 2px 1px black;
+}

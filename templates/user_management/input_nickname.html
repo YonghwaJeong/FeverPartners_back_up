@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fever Partners</title>
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'css/jiwoo.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+        
+        <!-- icon -->
+        <script src="https://kit.fontawesome.com/6a125f09de.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="input_nickname_container">
+            <div class="page_back_header">
+                <span class="page_back">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </span>
+                <p style="margin-top:2vh;">fever partners</p>
+                <p>회원가입</p>
+            </div>
+            <div class="input_nickname_form" style="width: 60vw;">
+                <span>계정</span>
+                <form action="" method="POST" style="display: flex; flex-direction: column;">
+                    {% csrf_token %}
+                    {{ form.nickname }}
+                    {{ form.profile }}
+                    {{ form.region }}
+                    {{ form.region_detail }}
+                    <button type="submit">회원가입</button>
+                </form>
+            </div>
+        </div>
+        
+    </body>
+</html>

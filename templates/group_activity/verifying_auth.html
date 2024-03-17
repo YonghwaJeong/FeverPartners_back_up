@@ -1,0 +1,24 @@
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/minju.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+{% for auth in memberAuthentication %}
+<div class="v_d_wrap">
+  <div class="v_d">
+    <a onclick="loadAuth({{auth.pk}})"><span>{{ auth.user.nickname }}</span> 님의 활동 인증 요청</a>
+    {% comment %} <p>{{ auth.content }}</p>
+    <img src="{{ auth.image.url }}" alt="인증 이미지"> {% endcomment %}
+    <div class="v_d_b">
+      <a onclick="acceptAuth({{auth.id}},{{auth.room.pk}})">
+          <i class="ri-checkbox-circle-line y"></i> <!-- 수락 아이콘 -->
+      </a>
+      <a onclick="refuseAuth({{auth.id}},{{auth.room.pk}})">
+          <i class="ri-close-circle-line n"></i> <!-- 거절 아이콘 -->
+      </a>
+  </div>
+  </div>
+
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fever Partners</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/minju1.css' %}">
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+  </head>
+  <body>
+  <header>
+    <a class="go_back" href="{% url 'user_management:detail' user.id %}">
+      <i class="ri-arrow-left-s-line"></i>
+    </a>
+      <p class="room-title">수정하기</p>
+      <i class="ri-arrow-left-s-line hide-arrow"></i>
+    </header>
+    
+    <div class="user-update">
+      <form action="{% url 'user_management:update' user.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="user_id" value="{{ user.id }}">
+        <p>닉네임:</p><input name="nickname" placeholder="닉네임" value="{{ user.nickname }}" />
+        <p>한줄소개:</p><textarea name="profile" cols="30" rows="10" placeholder="프로필">{{ user.profile }}</textarea>
+        <p>지역:</p> <input name="region" placeholder="지역" value="{{ user.region }}" /> <br />
+        <p>지역상세:</p> <input name="region_detail" placeholder="상세 지역" value="{{ user.region_detail }}" />
+        <input type="file" name="profile_image" accept="image/*">
+        <div class="btn-container">
+          <input type="submit" value="수정완료" />
+        </div>
+      </form>
+    </div>
+    <div class="footer">
+      <a href="{% url 'group_management:group_list' %}" class="footer-link" style="display: flex;">
+        <div class="footer-item">
+          <i class="fa-solid fa-user-group footer-icon"></i>
+          <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+        </div>
+      </a>
+      <a href="{% url 'goal_management:goal_list' %}" class="footer-link" style="display: flex;">
+        <div class="footer-item">
+          <i class="fa-solid fa-bullseye footer-icon"></i>
+          <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+        </div>
+      </a>
+      <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-link" style="display: flex;">
+        <div class="footer-item">
+          <i class="ri-file-list-3-line footer-icon"></i>
+          <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-text">달성보고</a>    <!-- 이 부분 이름은 나중에 수정 필요 -->
+        </div>
+      </a>
+    </div>
+  </body>
+</html>

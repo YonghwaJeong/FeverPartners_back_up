@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/reset.css'%}">
+    <link rel="stylesheet" href="{% static 'css/jk.css' %}">
+    <link rel="stylesheet" href="{%static 'css/tag_selection.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="{%static 'javascript/jk.js'%}" defer></script>
+    <title>Fever Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id='center-wrap'>
+        <div id="group-request-container">
+            <div class='header-10vh'>
+                <div class="page_back_header">
+                    <a href="{% url 'user_management:main' %}" class="page_back">
+                        <i class="fa-solid fa-chevron-left main-color-text"></i>
+                    </a>
+                </div>
+                <div class="main-color-text">알림</div>
+                <div></div>
+            </div>
+            <ul>
+                {% for alarm in alarms %}
+                {% if alarm.room.master == user %}
+                    <li>
+                        <div><span class="main-color-text">{{ alarm.alarm_from.nickname}}</span> 님이 그룹가입 신청</div> 
+                        <a href="{% url 'alarm:alarm_detail_as_master' alarm.pk%}" class="request-detail-btn">상세보기</a>
+                    </li>
+                {% else %}
+                    {% if alarm.goal %}
+                        <li>
+                            <div><span class="main-color-text">{{ alarm.alarm_from.nickname}}</span> 님이 그룹가입 제안</div>
+                            <a href="{% url 'alarm:alarm_detail_as_user' alarm.pk%}" class="request-detail-btn">상세보기</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <div><span class="main-color-text">{{ alarm.alarm_from.nickname}}</span> 님이 그룹가입 요청</div> 
+                            <a href="{% url 'alarm:alarm_detail_direct' alarm.pk%}" class="request-detail-btn">상세보기</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="{% url 'group_management:group_list' %}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="fa-solid fa-user-group footer-icon"></i>
+            <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+          </div>
+        </a>
+        <a href="{% url 'goal_management:goal_list' %}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="fa-solid fa-bullseye footer-icon"></i>
+            <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+          </div>
+        </a>
+        <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="ri-file-list-3-line footer-icon"></i>
+            <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-text">달성보고</a>    <!-- 이 부분 이름은 나중에 수정 필요 -->
+          </div>
+        </a>
+      </div>
+
+</body>
+</html>
+

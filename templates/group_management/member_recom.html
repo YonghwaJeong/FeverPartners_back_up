@@ -1,0 +1,152 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="{%static 'javascript/main.js'%}" defer="defer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer="defer"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/minju2.css' %}">
+        <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+        <title>Fever Partners</title>
+    </head>
+    <body>
+        <header>
+            <a class="go_back" href="{% url 'group_management:group_list'%}">
+                <i class="ri-arrow-left-s-line"></i>
+            </a>
+            <p class="room-title">유저추천</p>
+            <i class="ri-arrow-left-s-line hide-arrow"></i>
+        </header>
+        <div class="group-wrap">
+            <div class="h5">
+                <h5>나의 그룹</h5>
+            </div>
+            <div class="group-div my-goal">
+                <h3>{{ room.title }}</h3>
+                <p>
+                    <span>방장</span>
+                    {{ room.master.nickname }}</p>
+                <p>
+                    <span>태그</span>
+                    {% for tag in room.tags.all %}
+                        {{ tag.tag_name }}
+                    {% endfor %}
+                </p>
+                <p>
+                    <span>활동태그</span>
+                    {% for activity_tag in room.activityTags.all %}
+                        {{ activity_tag.tag_name }}
+                    {% endfor %}
+                </p>
+                <p>
+                    <span>인증</span>
+                    {% if room.cert_required %}O{% else %}X{% endif %}
+                </p>
+            </div>
+
+            <div class="h5">
+                <h5>추천된 유저 목록</h5>
+            </div>
+
+            {% for goal in goals %}
+                <div class="group-div memdiv">
+                    <div class="he1">
+                        <div>
+                            {% if goal.user.profile_image %}
+                                <img
+                                    src="/media/{{goal.user.profile_image}}"
+                                    alt="프로필 이미지"
+                                    class="profile-image-my"/>
+                            {% else %}
+                                <img src="/static/image/noimage.png" alt="대체 이미지" class="profile-image-my"/>
+                            {% endif %}
+                            <div class="nife">
+                                <p class="nickcss">{{ goal.user.nickname }}</p>
+                                <p><span>Fever</span>
+                                    {{ goal.user.fuel }}<img class="fever-gif" src="{% static 'image/fire.gif' %}" alt="GIF 이미지">
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            class="join-button"
+                            onclick="suggestJoin(this, '{{ goal.user.nickname }}', {{ goal.user.id }}, {{ room.id }}, {{ goal.id }})">
+                            가입제안
+                        </button>
+                    </div>
+                    <div class="he2">
+                        <p>
+                            <span>목표</span>
+                            {{ goal.title }}
+                        </p>
+                        <p>
+                        <span>대면활동</span>
+                            {% if goal.favor_offline %}
+                                선호
+                            {% else %}
+                                비선호
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="he3">
+                        <p>
+                            <span>태그</span>
+                            {% for tag in goal.tags.all %}
+                                {{tag}}
+                            {% endfor %}
+                        </p>
+                        <p>
+                            <span>활동태그</span>
+                            {% for tag in goal.activityTags.all %}
+                                {{tag}}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+            <style>
+                .fever-gif {
+                    width: 20px !important;
+                    height: auto;
+                    margin-bottom: -1px;
+                }
+            </style>
+        </div>
+        <div class="footer">
+            <a
+                href="{% url 'group_management:group_list' %}"
+                class="footer-link"
+                style="display: flex;">
+                <div class="footer-item">
+                    <i class="fa-solid fa-user-group footer-icon"></i>
+                    <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+                </div>
+            </a>
+            <a
+                href="{% url 'goal_management:goal_list' %}"
+                class="footer-link"
+                style="display: flex;">
+                <div class="footer-item">
+                    <i class="fa-solid fa-bullseye footer-icon"></i>
+                    <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+                </div>
+            </a>
+            <a
+                href="{% url 'goal_management:achievement_report_list'%}"
+                class="footer-link"
+                style="display: flex;">
+                <div class="footer-item">
+                    <i class="ri-file-list-3-line footer-icon"></i>
+                    <a
+                        href="{% url 'goal_management:achievement_report_list'%}"
+                        class="footer-text">달성보고</a>
+                    <!-- 이 부분 이름은 나중에 수정 필요 -->
+                </div>
+            </a>
+        </div>
+    </body>
+</html>

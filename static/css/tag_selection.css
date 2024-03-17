@@ -1,0 +1,160 @@
+:root {
+    --main-color: #db4455;
+    --gray: #838383;
+    --red: #EB0000;
+    --green: #00AD26;
+    :root --main-color: #db4455;
+    --white-color: #ffffff;
+    --gray2-color: #A9A9A9;
+    --font-color: #6b6b6b;
+}
+/* Tag에 대한 일반 설정 부분(추후 충돌날 수 있음) */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked + label,
+input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: var(--main-color);
+}
+
+input[type="checkbox"]:focus + label,
+input[type="radio"]:focus + label {
+    outline: none;
+}
+
+/* ------------------------------------------------- */
+
+/* 추후 삭제될 부분 */
+
+.warning {
+    color: red;
+    font-size: 12px;
+}
+
+.goal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5vh;
+}
+
+.goal-header-w {
+    width: 90vw;
+}
+
+.black-08em-bold {
+    font-weight: bold;
+    font-size: 0.8em;
+    color: black;
+    border-bottom: 1px solid var(--gray2-color);
+    padding: 5px 0;
+}
+
+.choice-on-off {
+    display: flex;
+    gap: 15vw;
+}
+
+.choice-on-off > label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#center-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+#goal-setting-container {
+    display: flex;
+    width: 90vw;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.main-color-text {
+    color: var(--main-color);
+}
+
+.goal-form-setting {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+}
+
+#tag-container {
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+#tag-container > div:nth-of-type(1) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    margin-top: 2vh;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#detail-tag-container {
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 2vh;
+    margin-top: 2vh;
+    font-size: 20px;
+    font-weight: bold;
+    color: #8B8B8B;
+}
+
+#acttag-container {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    gap: 10px;
+}
+.g-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+.goal-btn {
+    border: none;
+    width: 130px;
+    height: 40px;
+}
+label {
+    color: var(--font-color);
+}
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}

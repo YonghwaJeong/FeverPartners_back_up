@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fever Partners</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jiwoo.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- icon -->
+    <script src="https://kit.fontawesome.com/6a125f09de.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="start_container">
+        <div class="logo">
+            <img src="{% static 'image/logo.png' %}">
+        </div>
+        <div class="start_btn">
+            <a href="{% url 'user_management:login' %}">Get Started</a>
+        </div>
+    </div>
+</body>
+</html>

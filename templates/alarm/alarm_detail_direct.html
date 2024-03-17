@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/reset.css'%}">
+    <link rel="stylesheet" href="{% static 'css/jk.css' %}">
+    <link rel="stylesheet" href="{%static 'css/tag_selection.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="{%static 'javascript/jk.js'%}" defer></script>
+    <title>Fever Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id='center-wrap'>
+        <div id="group-request-container">
+            <div class='header-10vh'>
+                <div class="page_back_header">
+                    <span onclick="goBack()" class="page_back">
+                        <i class="fa-solid fa-chevron-left main-color-text"></i>
+                    </span>
+                </div>
+                <div></div>
+            </div>
+    
+            <div class="suggest-join-group">
+                <p class="fs15em-bold"><span class="main-color-text">{{ alarm.alarm_from.nickname }}</span> 님의 그룹가입 제안</p>
+                <p><span class="main-color-text">{{ alarm.alarm_from.nickname }}</span> 님이 그룹에 직접 초대하셨습니다.<br> 가입을 원하시면 목표를 설정해주세요.</p>
+                <p>제안된 그룹: <span class="main-color-text">{{ alarm.room.title }}</span></p>
+                <p>방장: <span class="main-color-text">{{ alarm.room.master.nickname }}</span></p>
+                <p>태그: <span class="main-color-text"> {% for tag in alarm.room.tags.all %}
+                    {{ tag.tag_name }}
+                {% endfor %}</span></p>
+                <p>활동태그: <span class="main-color-text"> {% for activity_tag in alarm.room.activityTags.all  %}
+                    {{ activity_tag.tag_name }}
+                {% endfor %}</span></p>
+                <p>
+                    인증:
+                    <span class="main-color-text">{% if alarm.room.cert_required %}필수{% else %}선택{% endif %}</span>
+                    {% if alarm.room.cert_required %}
+                    벌금:
+                    <span class="main-color-text">{{alarm.room.penalty_value}}🪙</span>
+                        보증금:
+                        <span class="main-color-text">{{alarm.room.deposit}}🪙</span>
+                    {% endif %}
+                </p>
+                <div class="horizontal-btns">
+                    <select name="goal" id="goal" required>
+                    {% for goal in goals %}
+                        <option value="{{ goal.id }}">{{ goal.title }}</option>
+                    {% endfor %}
+                    </select>
+                    <div>
+                        <button onclick="acceptDirectRequest({{alarm.id}})" type="submit" class="white-main-btn">수락</button>
+                        <form method="POST" action="{% url 'alarm:reject_request' alarm.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="white-main-btn">거절</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

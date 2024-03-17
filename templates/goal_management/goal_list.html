@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{%static 'javascript/main.js'%}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/minju2.css' %}">
+    <script src="https://kit.fontawesome.com/aa0228ade6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+    <title>Fever Partners</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Noto+Sans+KR:wght@100..900&display=swap');
+      div {
+        font-family: "IBM Plex Sans KR", sans-serif;
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="go_back" href="{% url 'user_management:main'%}">
+            <i class="ri-arrow-left-s-line"></i>
+        </a>
+        <p class="room-title">목표</p>
+        <i class="ri-arrow-left-s-line hide-arrow"></i>
+    </header>
+    <div class="group-wrap">
+        {% for goal in goals %}
+            <div class="group-div">
+            <div class="goal-h">
+                <div class="group-icon2">
+                <i class="ri-flag-2-line"></i>
+                {% if goal.is_in_group %}
+                <a onclick="checkRoomActive({{goal.belonging_group_id}})">{{ goal.title }}    <span>그룹에 참여하고있어요!</span></a>
+                {% else %}
+                <a href="{%url "goal_management:recommendation_page" goal.pk %}">{{ goal.title }}   <span>새 그룹을 찾아보세요!</span></a>
+                {% endif %}
+                </div>
+              </div>
+              <p><span>내용</span> {{ goal.content }}</p>
+              <p><span>태그</span>
+                {% for tag in goal.tags.all %}
+                {{tag}}
+                {% endfor %} </p>
+                <p><span>활동태그</span>
+                  {% for activity_tag in goal.activityTags.all %}
+                  {{activity_tag}}
+                  {% endfor %} </p>
+                  <div class="goal-btns">
+                      <a onclick="GoalDeletionConfirm({{goal.pk}})" class="ac-btn">삭제</a>
+                      {% if not goal.is_completed %}
+                          <a class="ac-btn" href="{%url "goal_management:create_achievement_report" goal.pk %}">목표 달성 보고</a>
+                      {% endif %}
+                      {% if goal.is_in_group == False %}
+                      <a class="ac-btn" href="{%url "goal_management:recommendation_page" goal.pk %}">그룹추천</a>
+                      {% endif %}
+                  </div>
+    </div>
+        {% endfor %}
+    </div>
+    <div class="footer">
+        <a href="{% url 'group_management:group_list' %}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="fa-solid fa-user-group footer-icon"></i>
+            <a href="{% url 'group_management:group_list' %}" class="footer-text">내 그룹</a>
+          </div>
+        </a>
+        <a href="{% url 'goal_management:goal_list' %}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="fa-solid fa-bullseye footer-icon"></i>
+            <a href="{% url 'goal_management:goal_list' %}" class="footer-text">내 목표</a>
+          </div>
+        </a>
+        <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-link" style="display: flex;">
+          <div class="footer-item">
+            <i class="ri-file-list-3-line footer-icon"></i>
+            <a href="{% url 'goal_management:achievement_report_list'%}" class="footer-text">달성보고</a>    <!-- 이 부분 이름은 나중에 수정 필요 -->
+          </div>
+        </a>
+      </div>
+</body>
+</html>

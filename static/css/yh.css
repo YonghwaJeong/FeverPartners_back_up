@@ -1,0 +1,66 @@
+.report-span {
+    color : #db4455;
+}
+
+.report-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70vw;
+}
+
+.report-detail-wrap {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-top: 10vh;
+    margin-bottom: 2vh;
+    margin-left: 5vw;
+    gap: 1.6vh;
+}
+
+.report-image {
+    width: 88vw;
+    border: 2px solid #ddd;
+    box-shadow: 3px 5px 5px 0px rgba(219, 68, 85, 0.4);
+    height: auto;
+}
+
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.report-reaction-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 7vw;
+    margin-bottom: 3vh;
+    padding: 1vh 8vw;
+    background-color: rgba(219, 68, 85, 0.05);
+    border-radius: 15vw;
+}
+
+.report-reaction-btns > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.report-reaction-btns > div > button {
+    color: #db4455;
+    font-size: 11vw;
+}
+
+.report-reaction-btns > div > span {
+    color: #db4455;
+    font-size: 5vw;
+    font-weight: bold;
+}

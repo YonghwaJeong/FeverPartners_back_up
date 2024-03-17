@@ -1,0 +1,4 @@
+{% for subtag in subtags %}
+<input type="radio" id="subtag-{{ subtag.id }}" name="selected_subtag" value="{{ subtag.id }}">
+<label for="subtag-{{ subtag.id }}">{{ subtag.tag_name }}</label>
+{% endfor %}

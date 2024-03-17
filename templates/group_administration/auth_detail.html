@@ -1,0 +1,13 @@
+<div class="auth-detail-title"><span class="auth-detail-span">{{auth.user.nickname}}</span>님의 인증</div>
+<div><span class="auth-detail-span">내용 </span>{{auth.content}}</div>
+{% if auth.image %}
+<img class="auth-detail-img" src="{{auth.image.url}}" alt="">
+{% endif %}
+<div class="auth-detail-btns">
+    <a onclick="acceptAuth({{auth.id}},{{auth.room.pk}})">
+        <i class="ri-checkbox-circle-line y"></i>
+    </a>
+    <a onclick="refuseAuth({{auth.id}},{{auth.room.pk}})">
+        <i class="ri-close-circle-line n"></i>
+    </a>
+</div>

@@ -1,0 +1,20 @@
+{% block content %}
+<div id="auth-logs">
+  {% for auth in auth_log %}
+    <div class="auth-log">
+        <p class="gray-08em">{{ auth.created_date }}</p>
+        {% if auth.is_auth == True %}
+          <div class="auth-text">
+            <i class="ri-checkbox-circle-fill"></i>
+            <p><span class="main-color-bold">{{ auth.user.nickname }}</span>님이 인증을 <span class="auth-success">성공</span>했습니다.</p>
+          </div>
+        {% else %}
+          <div class="auth-text">
+            <i class="ri-close-circle-fill"></i>
+            <p><span class="main-color-bold">{{ auth.user.nickname }}</span>님이 인증을 <span class="auth-fail">실패</span>했습니다.</p>
+          </div>
+        {% endif %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}
